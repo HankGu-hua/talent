@@ -1,0 +1,215 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  padding: $spacing-lg $page-padding 48rpx;
+  box-sizing: border-box;
+}
+
+.scoreCard,
+.sectionCard {
+  border-radius: 32rpx;
+  background: $color-bg-card;
+  box-shadow: $shadow-card;
+  box-sizing: border-box;
+}
+
+.scoreCard {
+  padding: 48rpx 32rpx;
+  text-align: center;
+  background: linear-gradient(135deg, $color-primary 0%, $color-ai-purple 100%);
+  color: $color-text-white;
+}
+
+.reportLabel,
+.scoreValue,
+.scoreLevel,
+.scoreDesc,
+.sectionTitle,
+.questionTitle,
+.dimensionName,
+.dimensionComment,
+.dimensionScore,
+.dimensionMax,
+.bullet,
+.bulletWarn,
+.suggestion,
+.improved {
+  display: block;
+}
+
+.reportLabel {
+  font-size: $font-size-sm;
+  opacity: 0.82;
+  margin-bottom: $spacing-sm;
+}
+
+.scoreValue {
+  font-size: 112rpx;
+  line-height: 1;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-sm;
+}
+
+.scoreLevel {
+  width: 128rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  margin: 0 auto $spacing-md;
+  border-radius: $radius-round;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: $font-size-sm;
+}
+
+.scoreDesc {
+  font-size: $font-size-md;
+  line-height: $line-height-loose;
+  opacity: 0.9;
+}
+
+.sectionCard {
+  margin-top: $spacing-lg;
+  padding: $spacing-lg;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.questionTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+}
+
+.dimensionItem {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: $spacing-md 0;
+  border-bottom: 1rpx solid $color-divider;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.dimensionMain {
+  flex: 1;
+  padding-right: $spacing-md;
+}
+
+.dimensionName {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  margin-bottom: $spacing-xs;
+}
+
+.dimensionComment {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  line-height: $line-height-normal;
+}
+
+.dimensionScore {
+  font-size: $font-size-lg;
+  color: $color-score;
+  font-weight: $font-weight-bold;
+  white-space: nowrap;
+}
+
+.dimensionMax {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  font-weight: $font-weight-normal;
+}
+
+.bullet,
+.bulletWarn {
+  font-size: $font-size-md;
+  line-height: $line-height-loose;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-sm;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.bulletWarn {
+  color: $color-warning;
+}
+
+.suggestion {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+  margin-bottom: $spacing-sm;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.improved {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+  background: $color-bg-hover;
+  padding: $spacing-md;
+  border-radius: $radius-md;
+}
+
+.actionRow {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+}
+
+.secondaryButton,
+.primaryButton {
+  flex: 1;
+  height: $button-height-md;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.secondaryButton {
+  background: $color-bg-card;
+  color: $color-primary;
+  border: 1rpx solid $color-border;
+}
+
+.primaryButton {
+  background: $color-primary;
+  color: $color-text-white;
+}
+
+.emptyCard {
+  border-radius: 32rpx;
+  background: $color-bg-card;
+  box-shadow: $shadow-card;
+  padding: 80rpx 32rpx;
+  text-align: center;
+}
+
+.emptyText {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+  display: block;
+}

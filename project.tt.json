@@ -1,0 +1,13 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "structured_interview_tool",
+  "description": "structured_interview_tool",
+  "appid": "touristappid",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram"
+}

@@ -1,0 +1,112 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  padding: $spacing-lg $page-padding 48rpx;
+  box-sizing: border-box;
+}
+
+.heroCard,
+.sectionCard,
+.emptyCard {
+  border-radius: 28rpx;
+  background: $color-bg-card;
+  box-shadow: $shadow-card;
+  box-sizing: border-box;
+}
+
+.heroCard {
+  padding: 40rpx 32rpx;
+  background: linear-gradient(135deg, $color-primary 0%, $color-ai-purple 100%);
+  color: $color-text-white;
+}
+
+.tagRow,
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+}
+
+.tagRow {
+  margin-bottom: $spacing-md;
+}
+
+.tag,
+.difficulty,
+.title,
+.meta,
+.sectionTitle,
+.paragraph,
+.point,
+.frame,
+.emptyText {
+  display: block;
+}
+
+.tag,
+.difficulty,
+.meta {
+  padding: 8rpx 16rpx;
+  border-radius: $radius-round;
+  font-size: $font-size-xs;
+  background: rgba(255, 255, 255, 0.18);
+  color: $color-text-white;
+  white-space: nowrap;
+}
+
+.difficulty {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.title {
+  font-size: 40rpx;
+  line-height: $line-height-normal;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-md;
+}
+
+.sectionCard {
+  margin-top: $spacing-lg;
+  padding: $spacing-lg;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.paragraph,
+.point,
+.frame {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+.point {
+  margin-bottom: $spacing-sm;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.frame {
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  background: $color-bg-hover;
+}
+
+.emptyCard {
+  padding: 80rpx 32rpx;
+  text-align: center;
+}
+
+.emptyText {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+}

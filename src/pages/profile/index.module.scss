@@ -1,0 +1,189 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  padding: $spacing-lg $page-padding 48rpx;
+  box-sizing: border-box;
+}
+
+.profileCard,
+.metricCard,
+.skillCard,
+.recordList {
+  background: $color-bg-card;
+  border-radius: 28rpx;
+  box-shadow: $shadow-card;
+}
+
+.profileCard {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: 40rpx 32rpx;
+}
+
+.avatar {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $color-primary 0%, $color-ai-purple 100%);
+  color: $color-text-white;
+  font-size: 42rpx;
+  font-weight: $font-weight-bold;
+}
+
+.userName,
+.userDesc,
+.metricValue,
+.metricLabel,
+.sectionTitle,
+.skillName,
+.recordTitle,
+.recordDesc,
+.recordScore,
+.emptyRecordText {
+  display: block;
+}
+
+.userName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.userDesc {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.metricGrid {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+}
+
+.metricCard {
+  flex: 1;
+  padding: $spacing-lg $spacing-sm;
+  text-align: center;
+}
+
+.metricValue {
+  font-size: 40rpx;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.metricLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.sectionHeader {
+  margin: 40rpx 0 $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.skillCard {
+  padding: $spacing-lg;
+}
+
+.skillItem {
+  margin-bottom: $spacing-lg;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.skillName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  margin-bottom: $spacing-sm;
+}
+
+.progressTrack {
+  height: 16rpx;
+  border-radius: $radius-round;
+  background: $color-bg-hover;
+  overflow: hidden;
+}
+
+.progressStrong,
+.progressMedium,
+.progressWeak {
+  height: 100%;
+  border-radius: $radius-round;
+  background: linear-gradient(90deg, $color-primary 0%, $color-ai-cyan 100%);
+}
+
+.progressStrong {
+  width: 84%;
+}
+
+.progressMedium {
+  width: 76%;
+}
+
+.progressWeak {
+  width: 62%;
+}
+
+.recordList {
+  overflow: hidden;
+}
+
+.recordItem {
+  display: flex;
+  justify-content: space-between;
+  gap: $spacing-md;
+  padding: $spacing-lg;
+  border-bottom: 1rpx solid $color-divider;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.recordTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.recordDesc {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  line-height: $line-height-normal;
+}
+
+.recordScore {
+  min-width: 72rpx;
+  text-align: right;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-score;
+}
+
+.emptyRecord {
+  padding: 64rpx 32rpx;
+  text-align: center;
+}
+
+.emptyRecordText {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+}

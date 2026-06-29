@@ -16,13 +16,17 @@
 .headerTitle,
 .headerDesc,
 .headerNote,
+.searchInput,
 .filterLabel,
 .typeTag,
 .difficulty,
 .questionTitle,
 .questionPrompt,
 .metaText,
-.resultInfo {
+.resultInfo,
+.pageSizeLabel,
+.pageText,
+.emptyText {
   display: block;
 }
 
@@ -44,6 +48,38 @@
   font-size: $font-size-xs;
   line-height: $line-height-normal;
   color: $color-text-tertiary;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-top: $spacing-lg;
+  padding: 0 $spacing-md;
+  height: 88rpx;
+  border-radius: $radius-md;
+  background: $color-bg-card;
+  box-shadow: $shadow-card;
+  box-sizing: border-box;
+}
+
+.searchInput {
+  flex: 1;
+  height: 88rpx;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+}
+
+.clearSearch {
+  min-width: 88rpx;
+  height: 56rpx;
+  border-radius: $radius-button;
+  background: $color-bg-hover;
+  color: $color-text-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
 }
 
 .filterLabel {
@@ -163,31 +199,112 @@
   color: $color-text-tertiary;
 }
 
-.goButton {
-  width: 120rpx;
+.pageSizeRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+  flex-wrap: wrap;
+}
+
+.pageSizeLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-right: $spacing-xs;
+}
+
+.pageSizeItem,
+.pageSizeActive {
+  width: 96rpx;
   height: 56rpx;
   border-radius: $radius-button;
-  background: $color-primary;
-  color: $color-text-white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
   white-space: nowrap;
   transition: all $transition-base;
-
-  &:active {
-    opacity: 0.9;
-    transform: scale(0.98);
-  }
 }
 
-.moreHint {
-  padding: $spacing-lg;
+.pageSizeItem {
+  background: $color-bg-card;
+  border: 1rpx solid $color-border;
+  color: $color-text-secondary;
+}
+
+.pageSizeActive {
+  background: $color-primary;
+  border: 1rpx solid $color-primary;
+  color: $color-text-white;
+  font-weight: $font-weight-semibold;
+}
+
+.emptyCard {
+  margin-top: $spacing-md;
+  padding: 72rpx 32rpx;
+  border-radius: 28rpx;
+  background: $color-bg-card;
+  box-shadow: $shadow-card;
+  text-align: center;
+}
+
+.emptyText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+}
+
+.pageButton,
+.pageButtonDisabled {
+  flex: 1;
+  height: 76rpx;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+}
+
+.pageButton {
+  background: $color-primary;
+  color: $color-text-white;
+}
+
+.pageButtonDisabled {
+  background: $color-bg-hover;
+  color: $color-text-disabled;
+}
+
+.pageText {
+  min-width: 140rpx;
   text-align: center;
   font-size: $font-size-sm;
   color: $color-text-tertiary;
+}
+
+.backTop {
+  position: fixed;
+  right: 28rpx;
+  bottom: 64rpx;
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: $color-primary;
+  color: $color-text-white;
+  box-shadow: $shadow-card;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  z-index: 20;
 }
 
 // ======================== 参考框架 ========================

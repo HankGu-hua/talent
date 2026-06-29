@@ -67,15 +67,86 @@ function fillTemplate(template: string, index: number, subject: string): string 
     .replace(/\{target\}/g, pick(positionFillers, index * 3));
 }
 
+function getDifficultyAdvice(difficulty: Difficulty): string {
+  const map: Record<Difficulty, string> = {
+    入门: '作答时优先保证结构完整，语言简洁清楚，先把核心任务说准。',
+    进阶: '作答时要补充原因、约束和执行细节，让观点和措施之间形成衔接。',
+    冲刺: '作答时要体现岗位意识、风险预判和闭环反馈，避免只停留在原则表态。',
+  };
+  return map[difficulty];
+}
+
+function buildPointLine(point: string, index: number, q: InterviewQuestion): string {
+  const prefix = ['一', '二', '三', '四', '五'][index] || `${index + 1}`;
+  const stageHint = q.stage === '事业单位' ? '公共服务场景' : `${q.stage}结构化场景`;
+  return `${prefix}、${point}。结合${stageHint}和${q.subject}岗位，把“${q.title}”中的任务、对象和限制条件说具体。`;
+}
+
 function buildReferenceFrame(q: InterviewQuestion, seed: CategorySeed): string {
-  const lines = [
-    `本题可以按“表态-分析-行动-总结”的结构作答。${seed.frameIntro}`,
-  ];
-  seed.answerPoints.forEach((point, index) => {
-    const prefix = index === 0 ? '第一，' : index === 1 ? '第二，' : index === 2 ? '第三，' : '第四，';
-    lines.push(`${prefix}${point}。结合“${q.title}”中的具体情境展开，避免只说空泛原则。`);
-  });
-  lines.push('结尾可回到岗位职责和公共服务目标，强调依法依规、主动沟通、闭环落实。');
+  const context = `题干聚焦“${q.title}”，岗位方向为${q.subject}，练习难度为${q.difficulty}。`;
+  const difficultyAdvice = getDifficultyAdvice(q.difficulty);
+  let lines: string[] = [];
+
+  if (seed.type === '综合分析' && seed.category === '社会现象') {
+    lines = [
+      `${context}可按“判断态度-价值意义-现实问题-治理建议”的框架组织。${seed.frameIntro}`,
+      buildPointLine(seed.answerPoints[0], 0, q),
+      `二、从群众体验、基层执行、资源配置三个角度分析现象成因，避免简单评价好坏。`,
+      `三、围绕宣传引导、流程优化、部门协同、数据反馈提出可落地做法。`,
+      `四、结尾回到公共服务目标，说明如何用群众感受和工作成效检验改进。`,
+    ];
+  } else if (seed.type === '综合分析' && seed.category === '政策理解') {
+    lines = [
+      `${context}可按“政策目标-执行难点-岗位动作-效果评估”的框架作答。${seed.frameIntro}`,
+      `一、先说明政策导向要解决什么问题，以及对群众、基层和治理效率的意义。`,
+      `二、分析推进中可能遇到的认知偏差、资源不足、流程衔接和监督反馈问题。`,
+      `三、结合${q.subject}岗位，把政策要求转化为宣传解释、材料审核、协同办理或跟踪反馈等具体动作。`,
+      `四、用服务对象满意度、办理效率、问题复发率等指标说明后续复盘方式。`,
+    ];
+  } else if (seed.type === '组织计划') {
+    lines = [
+      `${context}可按“目标拆解-资源安排-流程推进-风险预案-复盘沉淀”的框架作答。${seed.frameIntro}`,
+      `一、明确活动或调研的目标、对象、时间节点和成果形式，先把任务边界说清楚。`,
+      `二、细化人员分工、物料准备、通知渠道和现场秩序，体现统筹能力。`,
+      `三、过程推进中设置签到、答疑、记录、反馈收集等环节，让活动不流于形式。`,
+      `四、提前准备人数超预期、设备故障、群众疑问集中等预案，结束后形成清单和改进建议。`,
+    ];
+  } else if (seed.type === '应急应变') {
+    lines = [
+      `${context}可按“稳住现场-核实情况-分类处置-公开回应-复盘改进”的框架作答。${seed.frameIntro}`,
+      `一、第一时间控制秩序、安抚情绪，保护群众安全和现场基本运行。`,
+      `二、快速核实事件原因、影响范围、责任边界和是否需要上报，避免未经核实就表态。`,
+      `三、按轻重缓急协调人员、设备、部门或平台资源，给出可执行的临时处理方案。`,
+      `四、向相关对象说明处理进度和后续安排，事后复盘流程漏洞并补充预案。`,
+    ];
+  } else if (seed.type === '人际关系') {
+    lines = [
+      `${context}可按“理解情绪-澄清目标-沟通协商-落实跟进”的框架作答。${seed.frameIntro}`,
+      `一、先认可对方合理诉求或工作压力，避免一上来评价对错。`,
+      `二、围绕共同工作目标核实分歧来源，区分信息误差、流程误解和资源冲突。`,
+      `三、提出可接受的协作方案，比如重新分工、补充说明、请示协调或阶段性反馈。`,
+      `四、后续保持沟通记录和结果跟进，既解决当前问题，也维护长期配合关系。`,
+    ];
+  } else if (seed.type === '岗位认知') {
+    lines = [
+      `${context}可按“职责理解-能力匹配-短板改进-行动计划”的框架作答。${seed.frameIntro}`,
+      `一、说明${q.subject}岗位与群众服务、政策执行、协调保障之间的关系。`,
+      `二、结合过往经历或能力特点，讲清自己能匹配哪些具体工作要求。`,
+      `三、客观看到需要提升的地方，如政策学习、沟通协调、文字表达或现场处置。`,
+      `四、给出入职后的学习计划、工作方法和复盘机制，体现稳定、务实和纪律意识。`,
+    ];
+  } else {
+    lines = [
+      `${context}可按“礼貌开场-共情回应-解释边界-给出安排-确认反馈”的框架表达。${seed.frameIntro}`,
+      `一、用第一人称开场，先表达理解、重视和愿意协助的态度。`,
+      `二、围绕题干情境说明事实依据、政策边界或工作安排，语言要自然，不要像背材料。`,
+      `三、给出下一步处理动作，包括谁来办、多久反馈、需要对方配合什么。`,
+      `四、结尾用礼貌语言确认对方是否理解，并承诺持续跟进。`,
+    ];
+  }
+
+  lines.push(`评分关注点：审题是否准确、结构是否清晰、措施是否具体、表达是否符合岗位场景。${difficultyAdvice}`);
+  lines.push('以上内容为练习参考框架，可根据个人经历和现场表达习惯调整。');
   return lines.join('');
 }
 

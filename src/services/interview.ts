@@ -1,5 +1,6 @@
 import { callFunction } from './cloud';
 import { InterviewScoreReport, ScoreInterviewPayload } from '@/types/interview';
+import localScoreInterview from '@/data/scoreInterview';
 
 // 评分服务：统一入口
 // - 微信端：callFunction 会调用云函数 scoreInterview（后端转发合规大模型）
@@ -9,7 +10,7 @@ export async function scoreInterview(payload: ScoreInterviewPayload): Promise<In
     const report = await callFunction<InterviewScoreReport>('scoreInterview', payload);
     return report;
   } catch (error) {
-    console.error('[InterviewService] 评分请求失败:', error);
-    throw error;
+    console.warn('[InterviewService] 云端评分不可用，已切换本地练习评分:', error);
+    return localScoreInterview(payload);
   }
 }

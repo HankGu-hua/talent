@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, ScrollView } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import {
@@ -11,12 +11,15 @@ import {
 } from '@/data/interview';
 import styles from './index.module.scss';
 
+const PAGE_SIZE = 30;
+
 const QuestionBankPage: React.FC = () => {
   const [stageFilter, setStageFilter] = useState('全部');
   const [subjectFilter, setSubjectFilter] = useState('全部');
   const [typeFilter, setTypeFilter] = useState('全部');
   const [categoryFilter, setCategoryFilter] = useState('全部');
   const [difficultyFilter, setDifficultyFilter] = useState('全部');
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const questions = useMemo(() => {
     let list = interviewQuestions;
@@ -26,6 +29,15 @@ const QuestionBankPage: React.FC = () => {
     if (categoryFilter !== '全部') list = list.filter((q) => q.category === categoryFilter);
     if (difficultyFilter !== '全部') list = list.filter((q) => q.difficulty === difficultyFilter);
     return list;
+  }, [stageFilter, subjectFilter, typeFilter, categoryFilter, difficultyFilter]);
+
+  const visibleQuestions = useMemo(
+    () => questions.slice(0, visibleCount),
+    [questions, visibleCount],
+  );
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
   }, [stageFilter, subjectFilter, typeFilter, categoryFilter, difficultyFilter]);
 
   const openQuestion = (questionId: number) => {
@@ -76,7 +88,7 @@ const QuestionBankPage: React.FC = () => {
       </View>
 
       <View className={styles.questionList}>
-        {questions.map((question) => (
+        {visibleQuestions.map((question) => (
           <View className={styles.questionCard} key={question.id} onClick={() => openQuestion(question.id)}>
             <View className={styles.cardTop}>
               <Text className={styles.typeTag}>{question.category}</Text>
@@ -99,6 +111,12 @@ const QuestionBankPage: React.FC = () => {
           </View>
         ))}
       </View>
+
+      {visibleCount < questions.length && (
+        <View className={styles.moreHint} onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>
+          <Text>加载更多题目（{visibleCount}/{questions.length}）</Text>
+        </View>
+      )}
     </View>
   );
 };

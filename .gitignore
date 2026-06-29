@@ -13,3 +13,4 @@ Thumbs.db
 
 *.local
 *.log
+project.private.config.json

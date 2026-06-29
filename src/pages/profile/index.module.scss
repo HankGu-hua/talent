@@ -9,7 +9,8 @@
 .profileCard,
 .metricCard,
 .skillCard,
-.recordList {
+.recordList,
+.linkList {
   background: $color-bg-card;
   border-radius: 28rpx;
   box-shadow: $shadow-card;
@@ -40,10 +41,13 @@
 .metricValue,
 .metricLabel,
 .sectionTitle,
+.sectionAction,
 .skillName,
 .recordTitle,
 .recordDesc,
 .recordScore,
+.linkTitle,
+.linkArrow,
 .emptyRecordText {
   display: block;
 }
@@ -86,6 +90,9 @@
 }
 
 .sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: 40rpx 0 $spacing-md;
 }
 
@@ -93,6 +100,11 @@
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   color: $color-text-primary;
+}
+
+.sectionAction {
+  font-size: $font-size-sm;
+  color: $color-primary;
 }
 
 .skillCard {
@@ -185,5 +197,39 @@
 
 .emptyRecordText {
   font-size: $font-size-md;
+  color: $color-text-tertiary;
+}
+
+.linkList {
+  overflow: hidden;
+}
+
+.linkItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-lg;
+  border-bottom: 1rpx solid $color-divider;
+  transition: all $transition-base;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:active {
+    opacity: 0.88;
+    background: $color-bg-hover;
+  }
+}
+
+.linkTitle {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.linkArrow {
+  font-size: 40rpx;
+  line-height: 1;
   color: $color-text-tertiary;
 }

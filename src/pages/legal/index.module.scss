@@ -1,0 +1,63 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  padding: $spacing-lg $page-padding 48rpx;
+  box-sizing: border-box;
+}
+
+.headerCard,
+.sectionCard {
+  border-radius: 28rpx;
+  background: $color-bg-card;
+  box-shadow: $shadow-card;
+  box-sizing: border-box;
+}
+
+.headerCard {
+  padding: 40rpx 32rpx;
+  background: linear-gradient(135deg, $color-primary 0%, $color-ai-purple 100%);
+  color: $color-text-white;
+}
+
+.title,
+.desc,
+.sectionTitle,
+.paragraph {
+  display: block;
+}
+
+.title {
+  font-size: 42rpx;
+  line-height: $line-height-normal;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-xs;
+}
+
+.desc {
+  font-size: $font-size-sm;
+  opacity: 0.86;
+}
+
+.sectionCard {
+  margin-top: $spacing-lg;
+  padding: $spacing-lg;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.paragraph {
+  font-size: $font-size-md;
+  line-height: $line-height-loose;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-sm;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -43,6 +43,10 @@ const ResultPage: React.FC = () => {
         <Text className={styles.scoreDesc}>{report.summary}</Text>
       </View>
 
+      <View className={styles.noticeCard}>
+        <Text className={styles.noticeText}>本报告由 AI 生成，仅供练习复盘参考，不代表真实评审结果或实际面试表现。</Text>
+      </View>
+
       <View className={styles.sectionCard}>
         <Text className={styles.sectionTitle}>本次题目</Text>
         <Text className={styles.questionTitle}>{report.questionTitle}</Text>

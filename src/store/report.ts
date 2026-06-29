@@ -1,6 +1,9 @@
 import { create } from 'zustand';
+import Taro from '@tarojs/taro';
 import { InterviewScoreReport, InterviewRecord } from '@/types/interview';
 import { interviewRecords as seedRecords } from '@/data/interview';
+
+const RECORD_STORAGE_KEY = 'tailing_interview_records';
 
 interface ReportState {
   // 当前查看的报告（从模拟页提交后写入，报告页读取）
@@ -10,6 +13,7 @@ interface ReportState {
   setCurrentReport: (report: InterviewScoreReport) => void;
   addRecord: (report: InterviewScoreReport) => void;
   openRecordReport: (recordId: number) => InterviewScoreReport | null;
+  clearRecords: () => void;
 }
 
 function formatDate(): string {
@@ -19,11 +23,30 @@ function formatDate(): string {
   return `${month}-${day}`;
 }
 
-let recordId = seedRecords.length + 1;
+function loadRecords(): InterviewRecord[] {
+  try {
+    const stored = Taro.getStorageSync<InterviewRecord[]>(RECORD_STORAGE_KEY);
+    return Array.isArray(stored) ? stored : seedRecords;
+  } catch (error) {
+    console.warn('[ReportStore] 读取本地练习记录失败:', error);
+    return seedRecords;
+  }
+}
+
+function saveRecords(records: InterviewRecord[]) {
+  try {
+    Taro.setStorageSync(RECORD_STORAGE_KEY, records);
+  } catch (error) {
+    console.warn('[ReportStore] 保存本地练习记录失败:', error);
+  }
+}
+
+const initialRecords = loadRecords();
+let recordId = Math.max(0, ...initialRecords.map((item) => item.id)) + 1;
 
 export const useReportStore = create<ReportState>((set, get) => ({
   currentReport: null,
-  records: seedRecords,
+  records: initialRecords,
   setCurrentReport: (report) => set({ currentReport: report }),
   addRecord: (report) =>
     set((state) => {
@@ -35,7 +58,9 @@ export const useReportStore = create<ReportState>((set, get) => ({
         comment: report.summary,
         report,
       };
-      return { records: [record, ...state.records] };
+      const records = [record, ...state.records];
+      saveRecords(records);
+      return { records };
     }),
   openRecordReport: (recordId) => {
     const record = get().records.find((item) => item.id === recordId);
@@ -44,5 +69,9 @@ export const useReportStore = create<ReportState>((set, get) => ({
       set({ currentReport: targetReport });
     }
     return targetReport;
+  },
+  clearRecords: () => {
+    saveRecords([]);
+    set({ records: [], currentReport: null });
   },
 }));

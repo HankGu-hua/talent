@@ -2,7 +2,7 @@ import { InterviewScoreReport, ScoreInterviewPayload, ScoreDimension } from '@/t
 
 // 本地评分实现（用于预览 / H5 / 未接入云函数时的降级运行）
 // 真实环境中微信端会调用同名云函数 scoreInterview，由后端转发给合规大模型评分
-// 评分维度面向公职结构化面试练习，仅作为复盘参考，不代表官方评分
+// 评分维度面向公职结构化面试练习，仅作为复盘参考，不代表真实评审结果
 
 interface DimensionRule {
   name: string;

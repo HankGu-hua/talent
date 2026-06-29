@@ -7,6 +7,7 @@ import styles from './index.module.scss';
 const ProfilePage: React.FC = () => {
   const records = useReportStore((state) => state.records);
   const openRecordReport = useReportStore((state) => state.openRecordReport);
+  const clearRecords = useReportStore((state) => state.clearRecords);
   const averageScore = records.length > 0
     ? Math.round(records.reduce((sum, item) => sum + item.score, 0) / records.length)
     : 0;
@@ -20,6 +21,29 @@ const ProfilePage: React.FC = () => {
       return;
     }
     Taro.navigateTo({ url: '/pages/result/index' });
+  };
+
+  const openLegal = (type: 'privacy' | 'agreement' | 'ai') => {
+    Taro.navigateTo({ url: `/pages/legal/index?type=${type}` });
+  };
+
+  const confirmClearRecords = () => {
+    if (records.length === 0) {
+      Taro.showToast({ title: '暂无练习记录', icon: 'none' });
+      return;
+    }
+    Taro.showModal({
+      title: '清空练习记录',
+      content: '清空后，本机保存的历史报告将无法恢复。确认清空？',
+      confirmText: '清空',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          clearRecords();
+          Taro.showToast({ title: '已清空', icon: 'success' });
+        }
+      },
+    });
   };
 
   return (
@@ -49,6 +73,7 @@ const ProfilePage: React.FC = () => {
 
       <View className={styles.sectionHeader}>
         <Text className={styles.sectionTitle}>练习记录</Text>
+        <Text className={styles.sectionAction} onClick={confirmClearRecords}>清空</Text>
       </View>
       <View className={styles.recordList}>
         {records.length === 0 ? (
@@ -66,6 +91,24 @@ const ProfilePage: React.FC = () => {
             </View>
           ))
         )}
+      </View>
+
+      <View className={styles.sectionHeader}>
+        <Text className={styles.sectionTitle}>服务说明</Text>
+      </View>
+      <View className={styles.linkList}>
+        <View className={styles.linkItem} onClick={() => openLegal('privacy')}>
+          <Text className={styles.linkTitle}>隐私政策</Text>
+          <Text className={styles.linkArrow}>›</Text>
+        </View>
+        <View className={styles.linkItem} onClick={() => openLegal('agreement')}>
+          <Text className={styles.linkTitle}>用户协议</Text>
+          <Text className={styles.linkArrow}>›</Text>
+        </View>
+        <View className={styles.linkItem} onClick={() => openLegal('ai')}>
+          <Text className={styles.linkTitle}>AI生成内容说明</Text>
+          <Text className={styles.linkArrow}>›</Text>
+        </View>
       </View>
     </View>
   );

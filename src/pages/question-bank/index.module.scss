@@ -15,6 +15,7 @@
 
 .headerTitle,
 .headerDesc,
+.headerNote,
 .filterLabel,
 .typeTag,
 .difficulty,
@@ -36,6 +37,13 @@
   font-size: $font-size-md;
   line-height: $line-height-loose;
   color: $color-text-secondary;
+}
+
+.headerNote {
+  margin-top: $spacing-sm;
+  font-size: $font-size-xs;
+  line-height: $line-height-normal;
+  color: $color-text-tertiary;
 }
 
 .filterLabel {
@@ -180,54 +188,6 @@
   text-align: center;
   font-size: $font-size-sm;
   color: $color-text-tertiary;
-}
-
-// ======================== 付费解锁（新布局） ========================
-.unlockTop {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: $spacing-sm;
-  margin-top: $spacing-md;
-  padding: $spacing-sm $spacing-md;
-  border-radius: $radius-button;
-  background: linear-gradient(135deg, $color-warning 0%, #ff9d2b 100%);
-  color: $color-text-white;
-  transition: all $transition-base;
-
-  &:active {
-    opacity: 0.9;
-    transform: scale(0.98);
-  }
-}
-
-.unlockTopText {
-  font-size: $font-size-md;
-  font-weight: $font-weight-semibold;
-}
-
-.unlockPrice {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-}
-
-.unlockedTag {
-  display: inline-block;
-  margin-top: $spacing-md;
-  font-size: $font-size-sm;
-  color: $color-score;
-}
-
-.filterLocked {
-  opacity: 0.55;
-}
-
-.lockHint {
-  display: block;
-  text-align: center;
-  margin-top: $spacing-lg;
-  font-size: $font-size-xs;
-  color: $color-text-disabled;
 }
 
 // ======================== 参考框架 ========================

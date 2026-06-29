@@ -5,7 +5,8 @@ export default defineAppConfig({
     'pages/question-bank/index',
     'pages/profile/index',
     'pages/result/index',
-    'pages/question-detail/index'
+    'pages/question-detail/index',
+    'pages/legal/index'
   ],
   window: {
     backgroundTextStyle: 'light',

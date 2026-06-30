@@ -288,8 +288,8 @@ const categorySeeds: CategorySeed[] = [
 
 function buildQuestions(): InterviewQuestion[] {
   const list: InterviewQuestion[] = [];
+  const usedTitles = new Set<string>();
   let id = 1;
-  const variantCount = 3;
 
   categorySeeds.forEach((seed, seedIdx) => {
     allStages.forEach((stage) => {
@@ -297,24 +297,27 @@ function buildQuestions(): InterviewQuestion[] {
       subjects.forEach((subject, subjectIdx) => {
         seed.templates.forEach((template, templateIdx) => {
           difficultyList.forEach((difficulty, difficultyIdx) => {
-            for (let v = 0; v < variantCount; v += 1) {
-              const fillIndex = id + seedIdx * 17 + subjectIdx * 7 + templateIdx * 5 + difficultyIdx * 3 + v;
-              const question: InterviewQuestion = {
-                id,
-                title: fillTemplate(template, fillIndex, subject),
-                type: seed.type,
-                stage,
-                subject,
-                difficulty,
-                category: seed.category,
-                prompt: seed.prompt,
-                answerPoints: seed.answerPoints,
-                duration: seed.type === '情景模拟' ? 240 : 180,
-              };
-              (question as InterviewQuestionWithFrame).referenceFrame = buildReferenceFrame(question, seed);
-              list.push(question);
-              id += 1;
+            const fillIndex = seedIdx * 101 + subjectIdx * 29 + templateIdx * 13 + difficultyIdx * 7 + id;
+            const title = fillTemplate(template, fillIndex, subject);
+            if (usedTitles.has(title)) {
+              return;
             }
+            usedTitles.add(title);
+            const question: InterviewQuestion = {
+              id,
+              title,
+              type: seed.type,
+              stage,
+              subject,
+              difficulty,
+              category: seed.category,
+              prompt: seed.prompt,
+              answerPoints: seed.answerPoints,
+              duration: seed.type === '情景模拟' ? 240 : 180,
+            };
+            (question as InterviewQuestionWithFrame).referenceFrame = buildReferenceFrame(question, seed);
+            list.push(question);
+            id += 1;
           });
         });
       });

@@ -14,7 +14,7 @@ const typeOptions: Array<QuestionType | '全部'> = ['全部', ...questionTypes]
 const PRESET_COUNTS = [5, 10, 15, 20];
 const MAX_QUESTION_COUNT = 100;
 const DEFAULT_QUESTION_COUNT = 5;
-const MIN_ANSWER_LENGTH = 20; // 触发评分的最小作答字数
+const MIN_ANSWER_LENGTH = 20; // 触发复盘的最小作答字数
 
 interface QuestionSession {
   question: InterviewQuestion;
@@ -25,8 +25,8 @@ interface QuestionSession {
 // 三态作答统计
 interface AnswerStats {
   total: number;
-  scored: number; // 已评分
-  answeredUnscored: number; // 已作答待评分
+  scored: number; // 已复盘
+  answeredUnscored: number; // 已作答待复盘
   unanswered: number; // 真正未作答
 }
 
@@ -189,11 +189,11 @@ const PracticePage: React.FC = () => {
     }
   };
 
-  // ---- 批量统一评分 + 生成综合报告 ----
+  // ---- 批量统一复盘 + 生成综合报告 ----
   const scoreAllAndSummary = async (sessArr: QuestionSession[]) => {
     if (submitting) return;
 
-    // 收集所有"已作答（>=最小字数）但未评分"的题目
+    // 收集所有"已作答（>=最小字数）但未复盘"的题目
     const pending: number[] = [];
     sessArr.forEach((s, idx) => {
       if (s.report === null && s.answer.trim().length >= MIN_ANSWER_LENGTH) {
@@ -201,7 +201,7 @@ const PracticePage: React.FC = () => {
       }
     });
 
-    // 没有任何待评分且没有已评分 → 无法生成报告
+    // 没有任何待复盘且没有已复盘 → 无法生成报告
     const alreadyScored = sessArr.filter((s) => s.report !== null).length;
     if (pending.length === 0 && alreadyScored === 0) {
       Taro.showToast({ title: '请至少完整作答一题', icon: 'none' });
@@ -222,20 +222,20 @@ const PracticePage: React.FC = () => {
           latest[idx] = { ...latest[idx], report };
           setSessions(latest);
         } catch (error) {
-          console.error('[Practice] 单题评分失败', error);
+          console.error('[Practice] 单题复盘失败', error);
           hasError = true;
         }
       }
       Taro.hideLoading();
       setSubmitting(false);
       if (hasError) {
-        Taro.showToast({ title: '部分题目评分失败', icon: 'none' });
+        Taro.showToast({ title: '部分题目复盘失败', icon: 'none' });
       }
     }
 
     const completed = latest.filter((s) => s.report !== null);
     if (completed.length === 0) {
-      Taro.showToast({ title: '评分失败，请重试', icon: 'none' });
+      Taro.showToast({ title: '复盘失败，请重试', icon: 'none' });
       return;
     }
 
@@ -253,13 +253,13 @@ const PracticePage: React.FC = () => {
     // 构造准确的确认文案
     let content = '';
     if (stats.unanswered === 0 && stats.answeredUnscored === 0) {
-      content = `已完成全部 ${stats.total} 题，确认提交并生成综合评分报告？`;
+      content = `已完成全部 ${stats.total} 题，确认提交并生成综合复盘报告？`;
     } else {
       const parts: string[] = [];
-      if (stats.scored > 0) parts.push(`已评分 ${stats.scored} 题`);
-      if (stats.answeredUnscored > 0) parts.push(`已作答待评分 ${stats.answeredUnscored} 题`);
+      if (stats.scored > 0) parts.push(`已复盘 ${stats.scored} 题`);
+      if (stats.answeredUnscored > 0) parts.push(`已作答待复盘 ${stats.answeredUnscored} 题`);
       if (stats.unanswered > 0) parts.push(`未作答 ${stats.unanswered} 题`);
-      content = `${parts.join('，')}。确认提交后将统一评分并生成综合报告，是否继续？`;
+      content = `${parts.join('，')}。确认提交后将统一复盘并生成综合报告，是否继续？`;
     }
 
     Taro.showModal({
@@ -289,7 +289,7 @@ const PracticePage: React.FC = () => {
   const avgScore = completedSessions.length > 0 ? Math.round(totalScore / completedSessions.length) : 0;
   const overallLevel = avgScore >= 85 ? '优秀' : avgScore >= 75 ? '良好' : avgScore >= 60 ? '合格' : '待提升';
 
-  // 维度聚合：各维度取所有已评分题目的平均分
+  // 维度聚合：各维度取所有已复盘题目的平均值
   const aggregatedDimensions = useMemo(() => {
     if (completedSessions.length === 0) return [];
     const dimMap: Record<string, { total: number; max: number; count: number }> = {};
@@ -454,7 +454,7 @@ const PracticePage: React.FC = () => {
 
         {session.report ? (
           <View className={styles.doneCard}>
-            <Text className={styles.cardTitle}>本题得分：{session.report.totalScore} 分</Text>
+            <Text className={styles.cardTitle}>本题复盘值：{session.report.totalScore}</Text>
             <Text className={styles.aiText}>{session.report.summary}</Text>
           </View>
         ) : (
@@ -475,7 +475,7 @@ const PracticePage: React.FC = () => {
             <View className={styles.bottomActions}>
               {isLast ? (
                 <View className={submitting ? styles.submitButtonDisabled : styles.submitButton} onClick={confirmAndSubmit}>
-                  <Text>{submitting ? '生成报告中...' : '提交评分'}</Text>
+                  <Text>{submitting ? '生成复盘中...' : '生成复盘'}</Text>
                 </View>
               ) : (
                 <View className={styles.confirmButton} onClick={confirmAnswer}>
@@ -499,14 +499,14 @@ const PracticePage: React.FC = () => {
     );
   }
 
-  // ======================== 综合评分报告阶段 ========================
+  // ======================== 综合复盘报告阶段 ========================
   return (
     <View className={styles.container}>
       <View className={styles.summaryHero}>
-        <Text className={styles.summaryLabel}>综合评分报告</Text>
+        <Text className={styles.summaryLabel}>综合复盘报告</Text>
         <Text className={styles.summaryScore}>{avgScore}</Text>
         <Text className={styles.summaryLevel}>{overallLevel}</Text>
-        <Text className={styles.summaryDesc}>共完成 {completedSessions.length}/{sessions.length} 题，综合评分 {avgScore} 分</Text>
+        <Text className={styles.summaryDesc}>共完成 {completedSessions.length}/{sessions.length} 题，综合复盘值 {avgScore}</Text>
       </View>
 
       {aggregatedDimensions.length > 0 && (
@@ -527,7 +527,7 @@ const PracticePage: React.FC = () => {
       )}
 
       <View className={styles.sectionCard}>
-        <Text className={styles.sectionTitle}>每题得分明细</Text>
+        <Text className={styles.sectionTitle}>每题复盘明细</Text>
         {sessions.map((s, idx) => (
           <View className={styles.scoreDetailRow} key={idx}>
             <View className={styles.scoreRow}>
@@ -538,7 +538,7 @@ const PracticePage: React.FC = () => {
               {s.report ? (
                 <Text className={styles.rowScore}>{s.report.totalScore}</Text>
               ) : s.answer.trim().length > 0 ? (
-                <Text className={styles.rowSkipped}>未评分</Text>
+                <Text className={styles.rowSkipped}>未复盘</Text>
               ) : (
                 <Text className={styles.rowSkipped}>未答</Text>
               )}

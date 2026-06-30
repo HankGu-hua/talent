@@ -1,8 +1,7 @@
 import { InterviewScoreReport, ScoreInterviewPayload, ScoreDimension } from '@/types/interview';
 
-// 本地评分实现（用于预览 / H5 / 未接入云函数时的降级运行）
-// 真实环境中微信端会调用同名云函数 scoreInterview，由后端转发给合规大模型评分
-// 评分维度面向公职结构化面试练习，仅作为复盘参考，不代表真实评审结果
+// 本地复盘实现：用于提审版本和未接入云端能力时的练习反馈。
+// 复盘维度面向公职结构化面试练习，仅作为表达训练参考，不代表真实评审结果。
 
 interface DimensionRule {
   name: string;
@@ -85,7 +84,7 @@ function buildLevel(total: number): string {
 
 export default function scoreInterview(payload: ScoreInterviewPayload): InterviewScoreReport {
   const { question, answer } = payload;
-  console.info('[ScoreInterview] 本地评分开始', { questionId: question.id, answerLength: answer.length });
+  console.info('[ScoreInterview] 本地复盘开始', { questionId: question.id, answerLength: answer.length });
 
   const dimensions = buildDimensions(answer, question.answerPoints);
   const totalScore = dimensions.reduce((sum, item) => sum + item.score, 0);
@@ -129,7 +128,7 @@ export default function scoreInterview(payload: ScoreInterviewPayload): Intervie
     questionTitle: question.title,
     totalScore,
     level,
-    summary: `本次得分 ${totalScore} 分（${level}）。${weaknesses[0] ? '主要可提升点：' + weaknesses[0] : '整体结构和表达较均衡。'}`,
+    summary: `本次复盘值 ${totalScore}（${level}）。${weaknesses[0] ? '主要可提升点：' + weaknesses[0] : '整体结构和表达较均衡。'}`,
     dimensions,
     strengths,
     weaknesses,
@@ -137,6 +136,6 @@ export default function scoreInterview(payload: ScoreInterviewPayload): Intervie
     improvedAnswer,
   };
 
-  console.info('[ScoreInterview] 本地评分完成', { totalScore, level });
+  console.info('[ScoreInterview] 本地复盘完成', { totalScore, level });
   return report;
 }

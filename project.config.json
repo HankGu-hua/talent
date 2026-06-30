@@ -1,6 +1,5 @@
 {
   "miniprogramRoot": "dist/",
-  "cloudfunctionRoot": "cloudfunctions/",
   "projectname": "structured_interview_tool",
   "description": "structured_interview_tool",
   "appid": "wxe92e6bab1a62480a",

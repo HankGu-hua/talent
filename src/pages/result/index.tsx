@@ -37,7 +37,7 @@ const ResultPage: React.FC = () => {
   return (
     <View className={styles.container}>
       <View className={styles.scoreCard}>
-        <Text className={styles.reportLabel}>AI面试报告</Text>
+        <Text className={styles.reportLabel}>AI复盘报告</Text>
         <Text className={styles.scoreValue}>{report.totalScore}</Text>
         <Text className={styles.scoreLevel}>{report.level}</Text>
         <Text className={styles.scoreDesc}>{report.summary}</Text>
@@ -53,7 +53,7 @@ const ResultPage: React.FC = () => {
       </View>
 
       <View className={styles.sectionCard}>
-        <Text className={styles.sectionTitle}>评分拆解</Text>
+        <Text className={styles.sectionTitle}>能力拆解</Text>
         {report.dimensions.map((dim) => (
           <View className={styles.dimensionItem} key={dim.name}>
             <View className={styles.dimensionMain}>

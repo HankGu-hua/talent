@@ -145,7 +145,7 @@ function buildReferenceFrame(q: InterviewQuestion, seed: CategorySeed): string {
     ];
   }
 
-  lines.push(`评分关注点：审题是否准确、结构是否清晰、措施是否具体、表达是否符合岗位场景。${difficultyAdvice}`);
+  lines.push(`复盘关注点：审题是否准确、结构是否清晰、措施是否具体、表达是否符合岗位场景。${difficultyAdvice}`);
   lines.push('以上内容为练习参考框架，可根据个人经历和现场表达习惯调整。');
   return lines.join('');
 }

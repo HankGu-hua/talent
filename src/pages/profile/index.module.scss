@@ -204,7 +204,8 @@
   overflow: hidden;
 }
 
-.linkItem {
+.linkItem,
+.feedbackButton {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -219,6 +220,21 @@
   &:active {
     opacity: 0.88;
     background: $color-bg-hover;
+  }
+}
+
+.feedbackButton {
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-sizing: border-box;
+  line-height: normal;
+  text-align: left;
+
+  &::after {
+    border: none;
   }
 }
 

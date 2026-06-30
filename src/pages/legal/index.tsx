@@ -32,7 +32,7 @@ const contentMap: Record<LegalType, { title: string; sections: LegalSection[] }>
         title: '信息管理',
         paragraphs: [
           '你可以在“我的”页面清空本地练习记录。清空后，本机已保存的历史报告将无法恢复。',
-          '后续如接入云端同步，将在上线前补充云端数据删除和反馈入口。',
+          '当前版本以本地练习记录为主，不主动上传作答内容。后续如接入云端同步，将在上线前补充云端数据删除和反馈入口。',
         ],
       },
     ],
@@ -43,7 +43,7 @@ const contentMap: Record<LegalType, { title: string; sections: LegalSection[] }>
       {
         title: '服务定位',
         paragraphs: [
-          '本工具用于面试练习、结构化表达训练和练习复盘，不提供课程服务，不承诺通过或分数提升结果。',
+          '本工具用于面试练习、结构化表达训练和练习复盘，不提供教学服务，不承诺通过或分数提升结果。',
           '题目、参考框架和复盘建议仅用于个人练习参考，不代表任何官方机构意见。',
         ],
       },
@@ -57,7 +57,7 @@ const contentMap: Record<LegalType, { title: string; sections: LegalSection[] }>
       {
         title: '服务调整',
         paragraphs: [
-          '我们可能根据产品迭代对题库、评分维度、页面功能进行调整。',
+          '我们可能根据产品迭代对题库、复盘维度、页面功能进行调整。',
           '如后续增加新的服务能力，将另行提供明确说明、记录查询和反馈入口。',
         ],
       },
@@ -69,7 +69,7 @@ const contentMap: Record<LegalType, { title: string; sections: LegalSection[] }>
       {
         title: 'AI复盘边界',
         paragraphs: [
-          'AI 复盘报告由系统根据你的作答内容和预设评分维度生成，仅供练习复盘参考。',
+          'AI 复盘报告由系统根据你的作答内容和预设复盘维度生成，仅供练习复盘参考。',
           'AI 结果不代表真实评审结果、实际面试表现或任何确定性承诺。',
         ],
       },

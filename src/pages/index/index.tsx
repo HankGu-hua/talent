@@ -78,7 +78,7 @@ const IndexPage: React.FC = () => {
 
       <View className={styles.sectionHeader}>
         <Text className={styles.sectionTitle}>最近练习</Text>
-        <Text className={styles.sectionMuted}>AI评分记录</Text>
+        <Text className={styles.sectionMuted}>AI复盘记录</Text>
       </View>
       <View className={styles.recordList}>
         {recentRecords.length === 0 ? (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from '@tarojs/components';
+import { View, Text, Button } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { useReportStore } from '@/store/report';
 import styles from './index.module.scss';
@@ -63,7 +63,7 @@ const ProfilePage: React.FC = () => {
         </View>
         <View className={styles.metricCard}>
           <Text className={styles.metricValue}>{averageScore}</Text>
-          <Text className={styles.metricLabel}>平均得分</Text>
+          <Text className={styles.metricLabel}>平均复盘值</Text>
         </View>
         <View className={styles.metricCard}>
           <Text className={styles.metricValue}>{level}</Text>
@@ -109,6 +109,10 @@ const ProfilePage: React.FC = () => {
           <Text className={styles.linkTitle}>AI生成内容说明</Text>
           <Text className={styles.linkArrow}>›</Text>
         </View>
+        <Button className={styles.feedbackButton} openType="feedback">
+          <Text className={styles.linkTitle}>问题反馈</Text>
+          <Text className={styles.linkArrow}>›</Text>
+        </Button>
       </View>
     </View>
   );

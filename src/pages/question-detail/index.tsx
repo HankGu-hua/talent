@@ -84,7 +84,7 @@ const QuestionDetailPage: React.FC = () => {
       </View>
 
       <View className={styles.sectionCard}>
-        <Text className={styles.sectionTitle}>评分关注点</Text>
+        <Text className={styles.sectionTitle}>复盘关注点</Text>
         {question.answerPoints.map((point, index) => (
           <Text className={styles.point} key={point}>{index + 1}. {point}</Text>
         ))}
